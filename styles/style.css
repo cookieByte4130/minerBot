@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+}
+table {
+  margin: 0 auto;
+}
+td {
+  border: 1px solid black;
+  height: 4rem;
+  width: 4rem;
+  text-align: center;
+  vertical-align: middle;
+}
