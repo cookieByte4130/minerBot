@@ -4,11 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MinerBot</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/style.css" />
     <script defer src="scripts/script.js"></script>
   </head>
   <body>
     <h1>MinerBot</h1>
     <table class="gameBoard"></table>
+    <div class="gameInfo">
+      <div class="gameStats">
+        <div class="sensors">Sensors: L <span class="lvl">9</span></div>
+        <div class="digTools">Dig Tools: L <span class="lvl">9</span></div>
+        <div class="sensors">
+          Carry: L <span class="lvl">9</span><br />
+          Carrying <span class="currLoad">9</span>kg of
+          <span class="maxLoad">99</span>kg
+        </div>
+      </div>
+      <div class="gameControls">
+        <button class="dig">Dig Down</button>
+        <button class="move">Move Bot</button>
+      </div>
+    </div>
   </body>
 </html>

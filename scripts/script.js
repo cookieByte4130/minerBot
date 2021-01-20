@@ -7,6 +7,18 @@
 //Tap Bot to select it, then click adjacent square to move. Or click Move button at bottom right of screen.
 
 const boardEl = document.querySelector(".gameBoard");
+const gameInfoEl = document.querySelector(".gameInfo");
+const gameStatsEl = document.querySelector(".gameStats");
+const gameControlsEl = document.querySelector(".gameControls");
+
+const game = {
+  sensors: 1,
+  "dig tools": 1,
+  carry: {
+    currLoad: 0,
+    maxLoad: 100,
+  },
+};
 
 function createGrid(size) {
   let grid = [];
@@ -19,15 +31,22 @@ function createGrid(size) {
   return grid;
 }
 function displayGrid(grid) {
-  console.log(grid);
   grid.forEach((row) => {
     let newRowEl = document.createElement("tr");
     boardEl.insertAdjacentElement("beforeend", newRowEl);
     row.forEach((cell) => {
       let newCellEl = document.createElement("td");
-      newCellEl.textContent = "land";
+      newCellEl.classList.add("land");
       boardEl.insertAdjacentElement("beforeend", newCellEl);
     });
   });
 }
-displayGrid(createGrid(3));
+
+function displayGameStats(game) {
+  console.log(game);
+}
+
+displayGrid(createGrid(8));
+gameInfoEl.getBoundingClientRect().width = boardEl.getBoundingClientRect().width;
+
+displayGameStats(game);
