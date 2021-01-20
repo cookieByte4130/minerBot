@@ -25,7 +25,16 @@ td {
   vertical-align: middle;
 }
 
+.bot {
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/bot3.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
 .land {
+  background-color: rgb(241, 241, 132);
   background-image: url("/assets/ground.jpg");
 }
 .base {
