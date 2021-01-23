@@ -116,6 +116,11 @@ function displayGrid(grid) {
 }
 
 boardEl.addEventListener("click", (e) => {
+  const moveTo = e.target.classList;
+  if (moveTo.contains("cliff") || moveTo.contains("water")) {
+    alert(`you cant go there`);
+    return;
+  }
   bot.move([e.target.cellIndex, e.target.parentNode.rowIndex]);
 });
 
