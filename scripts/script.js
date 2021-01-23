@@ -46,6 +46,13 @@ const bot = {
     let loc = boardEl.rows[destination[1]].cells[destination[0]];
     loc.insertAdjacentHTML("beforeend", `<div class='bot'><div>`);
   },
+  dig: function () {
+    console.log("minerBot is digging...");
+    //get cell location
+    //Get resource
+    //increase currLoad
+    //dig tools?
+  },
 };
 
 function createGrid(grid, size) {
@@ -58,10 +65,24 @@ function createGrid(grid, size) {
   return grid;
 }
 
+function roll(dSides) {
+  return Math.floor(Math.random() * dSides) + 1;
+}
+
+function setCellType(waterChance, cliffChance) {
+  if (roll(100) <= waterChance) {
+    return "water";
+  } else if (roll(100) <= cliffChance) {
+    return "cliff";
+  } else {
+    return "land";
+  }
+}
+
 function populateBoard(grid) {
   for (let row in grid) {
     for (let cell in grid[row]) {
-      grid[row][cell] = "land";
+      grid[row][cell] = setCellType(25, 20);
     }
   }
   //set up base
@@ -98,6 +119,11 @@ boardEl.addEventListener("click", (e) => {
   bot.move([e.target.cellIndex, e.target.parentNode.rowIndex]);
 });
 
+gameControlsEl.addEventListener("click", (e) => {
+  const action = e.target.value;
+  bot[action]();
+});
+
 function gameInit() {
   const boardSize = 8;
   const gameStatus = [];
@@ -111,3 +137,9 @@ function gameInit() {
   bot.move();
 }
 gameInit();
+
+//add event listener to bot and moveBtn
+//when clicked display a range of adjacent cells where player can move
+//add event listener to the range
+//allow for movement
+//after move remove the range class

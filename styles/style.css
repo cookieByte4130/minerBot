@@ -37,8 +37,17 @@ td {
   background-color: rgb(241, 241, 132);
   background-image: url("../assets/ground.jpg");
 }
+
+.water {
+  background-color: rgb(116, 195, 241);
+}
+
+.cliff {
+  background-image: url("../assets/cliff.jpg");
+}
+
 .base {
-  background-image: linear-gradient(grey, darkgrey, silver);
+  background-image: url("../assets/base1.jpg");
 }
 
 .gameInfo {
