@@ -5,9 +5,25 @@ const gameInfoEl = document.querySelector(".gameInfo");
 const gameStatsEl = document.querySelector(".gameStats");
 const gameControlsEl = document.querySelector(".gameControls");
 
+const dialogEl = document.querySelector(".dialogScreen");
+const dialogContentEl = document.querySelector(".dialogContent");
+const closeBtnEl = document.querySelector(".closeBtn");
+
+function notify(msg, el = "p") {
+  const contentEl = document.createElement(el);
+  dialogContentEl.textContent = "";
+  dialogContentEl.insertAdjacentElement("beforeend", contentEl);
+  contentEl.textContent = msg;
+  dialogEl.classList.toggle("hidden");
+}
+
+closeBtnEl.addEventListener("click", () => {
+  dialogEl.classList.toggle("hidden");
+});
+
 const bot = {
   display: {
-    currency: { level: 100 },
+    currency: { amount: 0 },
     sensors: { level: 1 },
     digTools: { level: 1 },
     carry: {
@@ -52,10 +68,10 @@ const bot = {
     if (
       document.querySelector(".bot").parentElement.classList.contains("base")
     ) {
-      alert(`Security bot yells "You can't dig on base!"`);
+      notify(`Security bot yells "You can't dig on base!"`);
       return;
     }
-    alert("minerBot is digging...");
+    notify("minerBot is digging...");
     //get cell location
     //Get resource
     //increase currLoad
@@ -126,7 +142,7 @@ function displayGrid(grid) {
 boardEl.addEventListener("click", (e) => {
   const moveTo = e.target.classList;
   if (moveTo.contains("cliff") || moveTo.contains("water")) {
-    alert(`you cant go there`);
+    notify(`you cant go there`);
     return;
   }
   bot.move([e.target.cellIndex, e.target.parentNode.rowIndex]);
@@ -158,3 +174,9 @@ gameInit();
 //add event listener to the range
 //allow for movement
 //after move remove the range class
+
+//return to base:
+//automatically unload ore
+//ore to currency coversion?
+//show dialog box
+//upgrade menu
