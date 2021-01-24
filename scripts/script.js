@@ -7,6 +7,7 @@ const gameControlsEl = document.querySelector(".gameControls");
 
 const bot = {
   display: {
+    currency: { level: 100 },
     sensors: { level: 1 },
     digTools: { level: 1 },
     carry: {
@@ -46,8 +47,15 @@ const bot = {
     let loc = boardEl.rows[destination[1]].cells[destination[0]];
     loc.insertAdjacentHTML("beforeend", `<div class='bot'><div>`);
   },
+  //WIP
   dig: function () {
-    console.log("minerBot is digging...");
+    if (
+      document.querySelector(".bot").parentElement.classList.contains("base")
+    ) {
+      alert(`Security bot yells "You can't dig on base!"`);
+      return;
+    }
+    alert("minerBot is digging...");
     //get cell location
     //Get resource
     //increase currLoad
@@ -125,8 +133,10 @@ boardEl.addEventListener("click", (e) => {
 });
 
 gameControlsEl.addEventListener("click", (e) => {
-  const action = e.target.value;
-  bot[action]();
+  if (e.target.value !== "dig") return;
+  // const action = e.target.value;
+  // bot[action]();
+  bot.dig();
 });
 
 function gameInit() {

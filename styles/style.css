@@ -33,6 +33,18 @@ td {
   background-position: center;
 }
 
+.base,
+.water,
+.cliff {
+  background-size: cover;
+  background-position: center;
+}
+
+.base {
+  background-color: grey;
+  background-image: url("../assets/base1.jpg");
+}
+
 .land {
   background-color: rgb(241, 241, 132);
   background-image: url("../assets/ground.jpg");
@@ -40,14 +52,12 @@ td {
 
 .water {
   background-color: rgb(116, 195, 241);
+  background-image: url("../assets/water.jpg");
 }
 
 .cliff {
+  background-color: brown;
   background-image: url("../assets/cliff.jpg");
-}
-
-.base {
-  background-image: url("../assets/base1.jpg");
 }
 
 .gameInfo {
