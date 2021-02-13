@@ -10,12 +10,20 @@ body {
   color: rgb(81, 255, 0);
 }
 
+.container {
+  max-width: 1200px;
+  min-height: 100vh;
+  background-color: rgb(43, 3, 10);
+  margin: 0 auto;
+}
+
 h1 {
   text-align: center;
 }
 
 table {
   margin: 0 auto;
+  height: 70%vh;
   border-collapse: collapse;
 }
 
@@ -45,6 +53,11 @@ td {
 .base {
   background-color: grey;
   background-image: url("../assets/base1.jpg");
+}
+
+.fe {
+  background-color: red;
+  background-image: url("../assets/fe.jpg");
 }
 
 .land {
@@ -105,7 +118,7 @@ DIALOG BOX
 
 .dialogContent {
   padding: 2rem 1rem;
-  font-weight: 200;
+  font-size: 2rem;
   color: black;
 }
 

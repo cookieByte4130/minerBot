@@ -13,29 +13,33 @@
     <script defer src="scripts/script.js"></script>
   </head>
   <body>
-    <section class="dialogScreen hidden">
-      <div class="dialogBox">
-        <button class="closeBtn">X</button>
-        <div class="dialogContent">Some Text Here</div>
-      </div>
-    </section>
-    <!-- add audio https://itch.io/queue/c/1018548/-free-music-packs?game_id=651698 -->
-    <h1>MinerBot</h1>
-    <table class="gameBoard"></table>
-    <div class="gameInfo">
-      <div class="gameStats">
-        <div class="currency">Currency: <span class="amount"></span>&copy;</div>
-        <div class="sensors">Sensors: L <span class="level">9</span></div>
-        <div class="digTools">Dig Tools: L <span class="level">9</span></div>
-        <div class="carry">
-          Carry: L <span class="level">9</span><br />
-          Carrying <span class="currLoad">9</span>kg of
-          <span class="maxLoad">99</span>kg
+    <div class="container">
+      <section class="dialogScreen hidden">
+        <div class="dialogBox">
+          <button class="closeBtn">X</button>
+          <div class="dialogContent">Some Text Here</div>
         </div>
-      </div>
-      <div class="gameControls">
-        <button class="dig" value="dig">Dig Down</button>
-        <!-- <button class="move" value="move">Move Bot</button> -->
+      </section>
+      <!-- add audio https://itch.io/queue/c/1018548/-free-music-packs?game_id=651698 -->
+      <h1>MinerBot</h1>
+      <table class="gameBoard"></table>
+      <div class="gameInfo">
+        <div class="gameStats">
+          <div class="currency">
+            Currency: <span class="amount"></span>&copy;
+          </div>
+          <div class="sensors">Sensors: L <span class="level">9</span></div>
+          <div class="digTools">Dig Tools: L <span class="level">9</span></div>
+          <div class="carry">
+            Carry: L <span class="level">9</span><br />
+            Carrying <span class="currLoad">9</span>kg of
+            <span class="maxLoad">99</span>kg
+          </div>
+        </div>
+        <div class="gameControls">
+          <button class="dig" value="dig">Dig Down</button>
+          <!-- <button class="move" value="move">Move Bot</button> -->
+        </div>
       </div>
     </div>
   </body>

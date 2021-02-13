@@ -22,7 +22,7 @@ closeBtnEl.addEventListener("click", () => {
 });
 
 const bot = {
-  display: {
+  stats: {
     currency: { amount: 0 },
     sensors: { level: 1 },
     digTools: { level: 1 },
@@ -41,9 +41,9 @@ const bot = {
     y: 0,
   },
   displayStats: function () {
-    for (let stat in this.display) {
-      for (let data in this.display[stat]) {
-        document.querySelector(`.${stat} .${data}`).textContent = this.display[
+    for (let stat in this.stats) {
+      for (let data in this.stats[stat]) {
+        document.querySelector(`.${stat} .${data}`).textContent = this.stats[
           stat
         ][data];
       }
@@ -62,6 +62,8 @@ const bot = {
     if (prevLoc) prevLoc.parentNode.removeChild(prevLoc);
     let loc = boardEl.rows[destination[1]].cells[destination[0]];
     loc.insertAdjacentHTML("beforeend", `<div class='bot'><div>`);
+    bot.currLoc.x = destination[0];
+    bot.currLoc.y = destination[1];
   },
   //WIP
   dig: function () {
@@ -71,13 +73,69 @@ const bot = {
       notify(`Security bot yells "You can't dig on base!"`);
       return;
     }
-    notify("minerBot is digging...");
-    //get cell location
+    const currCell = boardEl.rows[this.currLoc.y].cells[this.currLoc.x];
     //Get resource
-    //increase currLoad
-    //dig tools?
+    if (currCell.classList.contains("fe")) {
+      let msg, minedOre;
+      const cLoad = this.stats.carry.currLoad;
+      const mLoad = this.stats.carry.maxLoad;
+      const availOre = 100;
+
+      if (mLoad === cLoad) {
+        msg = `minerBot cannot carry anymore. Return to base to free up space`;
+      } else {
+        if (availOre + cLoad < mLoad) {
+          minedOre = availOre;
+        } else {
+          minedOre = mLoad - cLoad;
+        }
+
+        msg = `You mined ${minedOre} of Fe`;
+        //increase currLoad
+        this.stats.carry.currLoad += minedOre;
+        //switch fe to land class
+        currCell.classList.remove("fe");
+        currCell.classList.add("land");
+        //WIP update grid
+        //display changes
+        this.displayStats();
+      }
+      notify(msg);
+    } else {
+      notify(`There is no ore here`);
+    }
+  },
+  rtnToBase: function () {
+    const amtEarned = this.stats.carry.currLoad / 10;
+    this.stats.carry.currLoad = 0;
+    this.stats.currency.amount += amtEarned;
+    this.displayStats();
+    notify(`Ore-well: Great job! You earned ${amtEarned}(c)`);
+  },
+  //WIP
+  upgrade: function (equipment, lvl) {
+    let n;
+    switch (equipment) {
+      case "sensor":
+        n = 30;
+        break;
+      case "digTools":
+      case "carry":
+        n = 5;
+        break;
+    }
+    const cost = n * lvl ** 2;
+    console.log(cost);
+    //deduct cost from currency
+    //update sensor level in bot obj
+    //update display
+    // Carry Capacity cost 3x(Lvl^2) in ©, so L2 costs 12©, L3 costs 27©, etc. Each Carry level increases carry capacity by 100kg.
   },
 };
+
+function roll(dSides) {
+  return Math.floor(Math.random() * dSides) + 1;
+}
 
 function createGrid(grid, size) {
   for (let i = 0; i < size; i++) {
@@ -89,23 +147,20 @@ function createGrid(grid, size) {
   return grid;
 }
 
-function roll(dSides) {
-  return Math.floor(Math.random() * dSides) + 1;
-}
-
 function setCellType(waterChance, cliffChance) {
   if (roll(100) <= waterChance) {
     return "water";
   } else if (roll(100) <= cliffChance) {
     return "cliff";
   } else {
-    return "land";
+    return "fe";
   }
 }
 
 function populateBoard(grid) {
   for (let row in grid) {
     for (let cell in grid[row]) {
+      //the h20&cliff chances may bc vars later in dev
       grid[row][cell] = setCellType(25, 20);
     }
   }
@@ -146,6 +201,9 @@ boardEl.addEventListener("click", (e) => {
     return;
   }
   bot.move([e.target.cellIndex, e.target.parentNode.rowIndex]);
+  if (moveTo.contains("base")) {
+    bot.rtnToBase();
+  }
 });
 
 gameControlsEl.addEventListener("click", (e) => {
@@ -155,7 +213,7 @@ gameControlsEl.addEventListener("click", (e) => {
   bot.dig();
 });
 
-function gameInit() {
+function gameOn() {
   const boardSize = 8;
   const gameStatus = [];
 
@@ -167,13 +225,9 @@ function gameInit() {
   bot.findBase(gameStatus);
   bot.move();
 }
-gameInit();
+gameOn();
 
-//add event listener to bot and moveBtn
-//when clicked display a range of adjacent cells where player can move
-//add event listener to the range
-//allow for movement
-//after move remove the range class
+//fix bug where bot disappears if u click on it
 
 //return to base:
 //automatically unload ore
